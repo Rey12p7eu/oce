@@ -81,7 +81,6 @@ jobs:
 
           cp "$CS3" dist/ProviderLayarKaca21.cs3
 
-          HASH="sha256-$(sha256sum dist/ProviderLayarKaca21.cs3 | awk '{print $1}')"
           SIZE="$(stat -c%s dist/ProviderLayarKaca21.cs3)"
 
           curl -fsSL \
@@ -90,8 +89,7 @@ jobs:
 
           jq \
             --arg repo "https://github.com/${GITHUB_REPOSITORY}" \
-            --arg url "https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/builds/ProviderLayarKaca21.cs3" \
-            --arg hash "$HASH" \
+            --arg url "https://github.com/${GITHUB_REPOSITORY}/raw/refs/heads/builds/ProviderLayarKaca21.cs3?v=${OCE_VERSION}" \
             --argjson size "$SIZE" \
             --argjson version "$OCE_VERSION" \
             '[
@@ -99,7 +97,7 @@ jobs:
               | select(.internalName == "ProviderLayarKaca21")
               | .repositoryUrl = $repo
               | .url = $url
-              | .fileHash = $hash
+              | .fileHash = null
               | .fileSize = $size
               | .version = $version
             ]' \
@@ -111,7 +109,7 @@ jobs:
             "description": "Custom fixed LayarKaca21",
             "manifestVersion": 1,
             "pluginLists": [
-              "https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/builds/plugins.json"
+              "https://github.com/${GITHUB_REPOSITORY}/raw/refs/heads/builds/plugins.json?v=${OCE_VERSION}"
             ]
           }
           EOF
