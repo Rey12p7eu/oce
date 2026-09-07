@@ -5,28 +5,24 @@
   "requiresReferer": true,
   "variants": [
     {
-      "name": "default",
-      "headers": {}
+      "name": "browser",
+      "headers": {
+        "User-Agent": "Mozilla/5.0 (Linux; Android 13) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36"
+      }
     }
   ],
   "steps": [
     {
-      "step": "fetch",
+      "step": "webview",
       "url": "{url}",
-      "referer": "",
-      "headers": {},
-      "store": "response"
-    },
-    {
-      "step": "iframe",
-      "source": "response",
-      "selector": "iframe[src]",
-      "attribute": "src",
-      "exclude": "",
-      "include": "",
-      "base": "{url}"
+      "referer": "{referer}",
+      "headers": {
+        "User-Agent": "Mozilla/5.0 (Linux; Android 13) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36"
+      },
+      "interceptPattern": "(?i)(m3u8|mp4|master\\.txt|playlist)",
+      "timeoutMs": 25000
     }
   ],
-  "videoReferer": "",
+  "videoReferer": "{url}",
   "outputFilter": "adaptive"
 }
