@@ -1,0 +1,24 @@
+[
+  {
+    "iconUrl": "https://www.google.com/s2/favicons?domain=d21.team&sz=%size%",
+    "fileHash": null,
+    "apiVersion": 1,
+    "repositoryUrl": "https://github.com/Rey12p7eu/oce",
+    "fileSize": 363889,
+    "status": 1,
+    "language": "id",
+    "authors": [
+      "Imam2nd"
+    ],
+    "tvTypes": [
+      "AsianDrama",
+      "TvSeries",
+      "Movie"
+    ],
+    "version": 29813047,
+    "internalName": "ProviderLayarKaca21",
+    "description": "[Build 2026-08-26 05:17 WIB] 🎬 LayarKaca21 - Nonton film box office, series, dan Asian drama dengan subtitle Indonesia gratis!",
+    "url": "https://github.com/Rey12p7eu/oce/raw/refs/heads/builds/ProviderLayarKaca21.cs3?v=29813047",
+    "name": "ProviderLayarKaca21"
+  }
+]

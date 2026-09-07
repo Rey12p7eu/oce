@@ -1,0 +1,8 @@
+{
+  "name": "LayarKaca Fixed",
+  "description": "Custom fixed LayarKaca21",
+  "manifestVersion": 1,
+  "pluginLists": [
+    "https://github.com/Rey12p7eu/oce/raw/refs/heads/builds/plugins.json?v=29813047"
+  ]
+}
