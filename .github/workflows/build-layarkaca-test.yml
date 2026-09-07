@@ -1,0 +1,57 @@
+name: Build LayarKaca Test
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - fix-layarkaca
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          path: src
+
+      - name: Prepare JitPack
+        run: |
+          BASE="$GITHUB_WORKSPACE/jitpack-local/com/github/recloudstream/gradle"
+          LOCAL_REPO="$BASE/gradle/master-SNAPSHOT"
+
+          mkdir -p "$LOCAL_REPO"
+
+          curl -sL "https://jitpack.io/com/github/recloudstream/gradle/gradle/master-81b1d424d2-1/gradle-master-81b1d424d2-1.jar" \
+            -o "$LOCAL_REPO/gradle-master-SNAPSHOT.jar"
+
+          curl -sL "https://jitpack.io/com/github/recloudstream/gradle/gradle/master-81b1d424d2-1/gradle-master-81b1d424d2-1.pom" \
+            -o "$LOCAL_REPO/gradle-master-SNAPSHOT.pom"
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: adopt
+          java-version: 17
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Set build info
+        run: |
+          cd src
+          echo "BUILD_TIMESTAMP=$(TZ='Asia/Jakarta' date +'%Y-%m-%d %H:%M')" >> $GITHUB_ENV
+          echo "OCE_VERSION=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+
+      - name: Build LayarKaca
+        run: |
+          cd src
+          chmod +x gradlew
+          ./gradlew :ProviderLayarKaca21:make --stacktrace
+
+      - name: Upload LayarKaca
+        uses: actions/upload-artifact@v4
+        with:
+          name: LayarKaca21-Fixed
+          path: src/ProviderLayarKaca21/build/*.cs3
